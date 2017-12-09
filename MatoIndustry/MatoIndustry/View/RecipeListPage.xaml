@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:MatoIndustry.Control;assembly=MatoIndustry"
+             xmlns:pages="clr-namespace:Xamarin.Forms.Pages;assembly=Xamarin.Forms.Pages"
+             xmlns:effect="clr-namespace:MatoIndustry.Effect;assembly=MatoIndustry"
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}"
+             x:Class="MatoIndustry.View.RecipeListPage"
+             Title="{Binding Name}">
+    <ContentPage.Content>
+        <Grid>
+            <control:InfiniteListView ItemsSource="{Binding CookListItems}"
+                                      SelectedItem="{Binding CurrentRecipeDetailItems}"
+                                      LoadMoreCommand="{Binding  LoadMoreRecipeCommand}"
+                                      RowHeight="180">
+
+                <control:InfiniteListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <pages:CardView BindingContext="{Binding}"
+                                            ImageSource="{Binding Recipe.Img}"
+                                            Text="{Binding Name}"
+                                            Margin="0,5"
+                                            Detail="{Binding Food}">
+                                <pages:CardView.ControlTemplate>
+                                    <ControlTemplate>
+                                        <ContentView>
+                                            <Grid BackgroundColor="{ TemplateBinding BackgroundColor }">
+
+                                                <Image Source="{TemplateBinding ImageSource}"
+                                                       HorizontalOptions="FillAndExpand"
+                                                       VerticalOptions="StartAndExpand"
+                                                       Aspect="AspectFill"
+                                                       Style="{ StaticResource CardViewImageImageStyle }" />
+
+
+                                                <Label Text="{ TemplateBinding Text }"
+                                                       TextColor="White"
+                                                       LineBreakMode="WordWrap"
+                                                       VerticalOptions="End"
+                                                       Style="{ StaticResource CardViewTextStyle }">
+
+                                                    <Label.Effects>
+                                                        <effect:ShadowEffect Radius="5"
+                                                                             DistanceX="5"
+                                                                             DistanceY="5"
+                                                                             Color="Black">
+
+                                                        </effect:ShadowEffect>
+                                                    </Label.Effects>
+                                                </Label>
+
+
+
+
+
+                                            </Grid>
+
+
+                                        </ContentView>
+                                    </ControlTemplate>
+                                </pages:CardView.ControlTemplate>
+
+                            </pages:CardView>
+                        </ViewCell>
+                    </DataTemplate>
+                </control:InfiniteListView.ItemTemplate>
+
+            </control:InfiniteListView>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

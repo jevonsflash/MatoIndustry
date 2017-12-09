@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             BindingContext="{Binding Source={StaticResource Locator}, Path=SearchPage}"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:MatoIndustry.Control;assembly=MatoIndustry"
+             xmlns:pages="clr-namespace:Xamarin.Forms.Pages;assembly=Xamarin.Forms.Pages"
+             xmlns:effect="clr-namespace:MatoIndustry.Effect;assembly=MatoIndustry"
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}"
+             x:Class="MatoIndustry.View.SearchPage">
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="64" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="64"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Text=""
+                               FontFamily="FontAwesome"
+                               FontSize="22"
+                               TextColor="{StaticResource PhoneChromeBrush}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+
+                            <Entry Grid.Column="1"
+                               x:Name="SearchEntry"
+                               VerticalOptions="Center"
+                               Placeholder="想吃点什么..?"
+                               TextChanged="Entry_OnTextChanged"
+                               Text="{Binding SearchTxt ,Mode=TwoWay}"></Entry>
+                            <Label Grid.Column="2"
+                               Text=""
+                               x:Name="SearchLabel"
+                               FontFamily="FontAwesome"
+                               FontSize="18"
+                               TextColor="{StaticResource PhoneAccentBrush}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer    Command="{Binding CleanSearchTextCommand}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                            <Button Grid.Column="3"
+                                Text="搜索"
+                                x:Name="SearchButton"
+                                Command="{Binding SearchCommand}"></Button>
+                        </Grid>
+                        <BoxView Margin="12,0" HeightRequest="1" BackgroundColor="{StaticResource PhoneChromeBrush}"></BoxView>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1"
+                  x:Name="SearchWordsLayout">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <StackLayout Margin="12,0"
+                             Grid.Row="0">
+                    <Label Text="热门标签"
+                           Style="{StaticResource SectionLabelStyle}"></Label>
+                    <control:MainGridView MaxColumns="4"
+                                          TileHeight="50"
+                                          ItemsSource="{Binding HotSearchWords}"
+                                          SelectedItem="{Binding CurrentSearchWordsInfo}">
+                        <control:MainGridView.ItemTemplate>
+                            <DataTemplate>
+                                <ContentView>
+                                    <Label Text="{Binding Words}"
+                                           Margin="5"></Label>
+                                </ContentView>
+                            </DataTemplate>
+                        </control:MainGridView.ItemTemplate>
+                    </control:MainGridView>
+                </StackLayout>
+                <StackLayout Margin="12,0"
+                             Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="64"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="搜索历史"
+                               Style="{StaticResource SectionLabelStyle}"></Label>
+                        <Label Grid.Column="1"
+                               Text=""
+                               FontFamily="FontAwesome"
+                               FontSize="18"
+                               TextColor="{StaticResource PhoneAccentBrush}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer    Command="{Binding CleanHistoryCommand}"></TapGestureRecognizer>
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                    </Grid>
+                    <control:MainGridView MaxColumns="4"
+                                          TileHeight="50"
+                                          ItemsSource="{Binding SearchHistoryListForShow}"
+                                          SelectedItem="{Binding CurrentSearchWordsInfo}">
+                        <control:MainGridView.ItemTemplate>
+                            <DataTemplate>
+                                <ContentView>
+                                    <Label Text="{Binding Words}"
+                                           Margin="5"></Label>
+                                </ContentView>
+                            </DataTemplate>
+                        </control:MainGridView.ItemTemplate>
+                    </control:MainGridView>
+
+                </StackLayout>
+            </Grid>
+            <Grid Grid.Row="1"
+                  x:Name="SearchResultLayout">
+                <control:InfiniteListView ItemsSource="{Binding CookListItems}"
+                                          SelectedItem="{Binding CurrentRecipeDetailItems}"
+                                          LoadMoreCommand="{Binding  LoadMoreRecipeCommand}"
+                                          IsVisible="{Binding HasResult}"
+                                          RowHeight="180">
+                    <control:InfiniteListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <pages:CardView  BindingContext="{Binding}"
+                                                 ImageSource="{Binding Recipe.Img}"
+                                                 Text="{Binding Name}"
+                                                 Margin="0,5"
+                                                 Detail="{Binding Food}">
+                                    <pages:CardView.ControlTemplate>
+                                        <ControlTemplate>
+                                            <ContentView>
+                                                <Grid BackgroundColor="{ TemplateBinding BackgroundColor }">
+
+                                                    <Image Source="{TemplateBinding ImageSource}"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           VerticalOptions="StartAndExpand"
+                                                           Aspect="AspectFill"
+                                                           Style="{ StaticResource CardViewImageImageStyle }" />
+
+
+                                                    <Label Text="{ TemplateBinding Text }"
+                                                           TextColor="White"
+                                                           LineBreakMode="WordWrap"
+                                                           VerticalOptions="End"
+                                                           Style="{ StaticResource CardViewTextStyle }">
+
+                                                        <Label.Effects>
+                                                            <effect:ShadowEffect Radius="5"
+                                                                                 DistanceX="5"
+                                                                                 DistanceY="5"
+                                                                                 Color="Black">
+
+                                                            </effect:ShadowEffect>
+                                                        </Label.Effects>
+                                                    </Label>
+
+
+
+
+
+                                                </Grid>
+
+
+                                            </ContentView>
+                                        </ControlTemplate>
+                                    </pages:CardView.ControlTemplate>
+
+
+
+                                </pages:CardView>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </control:InfiniteListView.ItemTemplate>
+
+                </control:InfiniteListView>
+                <Label Text="暂无内容"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       IsVisible="{Binding HasResult,Converter={StaticResource True2FalseConverter}}"></Label>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>

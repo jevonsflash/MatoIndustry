@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:MatoIndustry.Control;assembly=MatoIndustry"
+             xmlns:themes="clr-namespace:Xamarin.Forms.Themes;assembly=Xamarin.Forms.Theme.Light"
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}"
+             BindingContext="{Binding Source={StaticResource Locator},Path=ToolTimerPage}"
+             x:Class="MatoIndustry.View.ToolTimerPage">
+    <ContentPage.Resources>
+        <ResourceDictionary MergedWith="themes:LightThemeResources"></ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Margin="12,15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label x:Name="TipLabel"
+                   FontSize="12"
+                   TextColor="{StaticResource PhoneAccentBrush}"></Label>
+            <Grid Grid.Row="1"
+                  IsVisible="{Binding IsRunning}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Text="{Binding Hour}"
+                       FontSize="42"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"></Label>
+                <Label Grid.Column="1"
+                       Text=":"
+                       FontSize="22"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"></Label>
+                <Label Grid.Column="2"
+                       Text="{Binding Min}"
+                       FontSize="42"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"></Label>
+                <Label Grid.Column="2"
+                       TextColor="{StaticResource PhoneChromeBrush}"
+                       Text="{Binding Sec}"
+                       FontSize="22"
+                       VerticalOptions="Center"
+                       HorizontalOptions="End"></Label>
+            </Grid>
+
+            <Grid Grid.Row="1"
+                  IsVisible="{Binding IsRunning ,Converter={StaticResource True2FalseConverter }}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <control:PickerView Grid.Column="0"
+                                    ItemsSource="{Binding HourSource}"
+                                    SelectedIndex="{Binding Hour}"
+                                    VerticalOptions="Center"
+                                    FontSize="42" />
+                <Label Grid.Column="1"
+                       Text=":"
+                       FontSize="22"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"></Label>
+                <control:PickerView Grid.Column="2"
+                                    ItemsSource="{Binding MinSource}"
+                                    SelectedIndex="{Binding Min}"
+                                    VerticalOptions="Center"
+                                    FontSize="42" />
+
+            </Grid>
+            <Label Text="{Binding WarnningText}"
+                   Grid.Row="2"
+                   TextColor="Red"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"></Label>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding StartorPauseCommand}"></TapGestureRecognizer>
+                    </Grid.GestureRecognizers>
+                    <BoxView BackgroundColor="{StaticResource PhoneAccentBrush}"
+                             HeightRequest="250"
+                             WidthRequest="250"
+                             Margin="7.5"
+                             VerticalOptions="CenterAndExpand"
+                             HorizontalOptions="CenterAndExpand"
+                             StyleClass="Circle">
+                        <BoxView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding StartorPauseCommand}"></TapGestureRecognizer>
+                        </BoxView.GestureRecognizers>
+                    </BoxView>
+                    <Label Text="{Binding IsRunning,Converter={StaticResource Bool2StringConverter},ConverterParameter=停止|开始计时}"
+                           TextColor="White"
+                           BackgroundColor="Transparent"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="CenterAndExpand"
+                           IsEnabled="{Binding IsRunning,Converter={StaticResource True2FalseConverter}}">
+                    </Label>
+                </Grid>
+                <Button Grid.Column="2"
+                        x:Name="ResetButton"
+                        VerticalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        IsEnabled="{Binding IsRunning,Converter={StaticResource True2FalseConverter}}"
+                        Text="重置时间"
+                        Command="{Binding ResetCommand}"></Button>
+
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xamarinForms:BottomBarPage xmlns="http://xamarin.com/schemas/2014/forms"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                            xmlns:view="clr-namespace:MatoIndustry.View;assembly=MatoIndustry"
+                            xmlns:iOsSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                            xmlns:xamarinForms="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
+                            BindingContext="{Binding Source={StaticResource Locator},Path=MainPage}"
+                            BarTheme="Light"
+                            FixedMode="True"
+                            x:Class="MatoIndustry.View.MainPage"
+                            BarTextColor="Black"
+                            Title="工控"
+                            Icon="icon">
+    <xamarinForms:BottomBarPage.ToolbarItems>
+        <ToolbarItem Command="{Binding  GoAboutPageCommand}"
+                     Text="关于"
+                     Icon="info.png"></ToolbarItem>
+
+    </xamarinForms:BottomBarPage.ToolbarItems>
+    <view:RecommendPage Title="推荐"
+                        Icon="food"
+                        x:Name="RecommendFrame"
+                        iOsSpecific:NavigationPage.IsNavigationBarTranslucent="False"></view:RecommendPage>
+
+    <view:CategoryPage Title="分类"
+                       Icon="category"
+                       x:Name="CategoryFrame"
+                       iOsSpecific:NavigationPage.IsNavigationBarTranslucent="true">
+    </view:CategoryPage>
+    <view:SearchPage Title="搜索"
+                     Icon="search"
+                     x:Name="SearchFrame"
+                     iOsSpecific:NavigationPage.IsNavigationBarTranslucent="true">
+    </view:SearchPage>
+    <view:UserProfilePage Title="我的"
+                          Icon="mine"
+                          x:Name="MineFrame"
+                          iOsSpecific:NavigationPage.IsNavigationBarTranslucent="true"></view:UserProfilePage>
+</xamarinForms:BottomBarPage>

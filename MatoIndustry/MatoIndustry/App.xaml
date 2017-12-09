@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="http://xamarin.com/schemas/2014/forms"
+             xmlns:vm="clr-namespace:MatoIndustry.ViewModel"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:pages="clr-namespace:Xamarin.Forms.Pages;assembly=Xamarin.Forms.Pages"
+             x:Class="MatoIndustry.App"
+             d1p1:Ignorable="d"
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converter="clr-namespace:MatoIndustry.Converter;assembly=MatoIndustry"
+             xmlns:effect="clr-namespace:MatoIndustry.Effect;assembly=MatoIndustry"
+             xmlns:common="clr-namespace:MatoIndustry.Common;assembly=MatoIndustry"
+             xmlns:themes="clr-namespace:Xamarin.Forms.Themes;assembly=Xamarin.Forms.Theme.Light">
+    <Application.Resources>
+        <forms:ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+            <vm:ViewModelLocator x:Key="Locator"
+                                 d:IsDataSource="True" />
+
+
+            <system:String x:Key="Version">1.0</system:String>
+            <system:Double x:Key="HeaderFontSize">67</system:Double>
+            <system:Double x:Key="SubtitleFontSize">38</system:Double>
+            <system:Double x:Key="StandOutBodyFontSize">28</system:Double>
+            <system:Double x:Key="BodyFontSize">18</system:Double>
+            <system:String x:Key="Bound">0</system:String>
+            <system:String x:Key="PhoneBackgroundImage">aa</system:String>
+            <forms:Color x:Key="PhoneBackgroundBrush">#F8F0EA</forms:Color>
+            <forms:Color x:Key="PhoneForegroundBrush">Black</forms:Color>
+            <forms:Color x:Key="PhoneContrastBackgroundBrush">SaddleBrown</forms:Color>
+            <forms:Color x:Key="PhoneWeakenBackgroundBrush">#FFDEC5</forms:Color>
+            <forms:Color x:Key="PhoneContrastForegroundBrush">White</forms:Color>
+            <forms:Color x:Key="PhoneAccentBrush">SaddleBrown</forms:Color>
+            <forms:Color x:Key="PhoneChromeBrush">DimGray</forms:Color>
+
+            <converter:Bool2StringConverter x:Key="Bool2StringConverter"></converter:Bool2StringConverter>
+            <converter:TodoItemStatus2StringConverter x:Key="TodoItemStatus2StringConverter"></converter:TodoItemStatus2StringConverter>
+            <converter:True2FalseConverter x:Key="True2FalseConverter"></converter:True2FalseConverter>
+            <common:FaIcons  x:Key="FaIcons"></common:FaIcons>
+
+            <forms:Style TargetType="forms:Label"
+                         x:Key="CardViewTextStyle">
+                <forms:Setter Property="FontSize"
+                              Value="22" />
+                <forms:Setter Property="TextColor"
+                              Value="{x:StaticResource PhoneForegroundBrush}" />
+                <forms:Setter Property="HorizontalOptions"
+                              Value="Start" />
+                <forms:Setter Property="Margin"
+                              Value="12,10,12,4" />
+                <forms:Setter Property="HorizontalTextAlignment"
+                              Value="Start" />
+            </forms:Style>
+
+            <forms:Style TargetType="forms:Image"
+                         x:Key="CardViewImageImageStyle">
+                <forms:Setter Property="HorizontalOptions"
+                              Value="Center" />
+                <forms:Setter Property="VerticalOptions"
+                              Value="Center" />
+                <forms:Setter Property="HeightRequest"
+                              Value="180" />
+            </forms:Style>
+            <forms:Style TargetType="forms:Button">
+                <forms:Setter Property="TextColor"
+                              Value="{x:StaticResource PhoneAccentBrush}">
+                </forms:Setter>
+                <forms:Setter Property="Margin"
+                              Value="0"></forms:Setter>
+                <forms:Setter Property="BackgroundColor"
+                              Value="Transparent"></forms:Setter>
+                <forms:Setter Property="BorderWidth"
+                              Value="0"></forms:Setter>
+                <forms:Setter Property="BorderColor"
+                              Value="Transparent"></forms:Setter>
+
+            </forms:Style>
+            <forms:Style TargetType="forms:Label"
+                         x:Key="SectionLabelStyle">
+
+                <forms:Setter Property="TextColor"
+                              Value="{x:StaticResource PhoneChromeBrush}">
+                </forms:Setter>
+                <forms:Setter Property="FontSize"
+                              Value="12">
+                </forms:Setter>
+            </forms:Style>
+            <forms:Style TargetType="forms:Label">
+
+                <forms:Setter Property="TextColor"
+                              Value="{x:StaticResource PhoneForegroundBrush}">
+                </forms:Setter>
+
+
+            </forms:Style>
+            <forms:Style TargetType="forms:ListView">
+                <forms:Setter Property="BackgroundColor"
+                              Value="Transparent">
+                </forms:Setter>
+                <forms:Setter Property="SeparatorVisibility"
+                              Value="None">
+                </forms:Setter>
+            </forms:Style>
+
+        </forms:ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:MatoIndustry.Control;assembly=MatoIndustry"
+             BindingContext="{Binding Source={StaticResource Locator},Path=ToolTodoPage}"
+             Disappearing="ToolTodoPage_OnDisappearing"
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}"
+             x:Class="MatoIndustry.View.ToolTodoPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="ToolbarItem_OnActivated"
+                     Text="添加"
+                     Icon="add.png"></ToolbarItem>
+        <ToolbarItem Clicked="ToolbarItem2_OnActivated"
+                     Text="完成"
+                     Icon="check.png"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="PeddingDataTemplate">
+                <ViewCell>
+                    <Grid Margin="0,5"
+                          BackgroundColor="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <BoxView BackgroundColor="{Binding Status,Converter={StaticResource TodoItemStatus2StringConverter},ConverterParameter=Yellow|Green|Gray}"></BoxView>
+                        <Grid Grid.Column="1"
+                              VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Text="{ Binding  Title }"
+                                   Grid.Row="0"
+                                   TextColor="{StaticResource PhoneAccentBrush}"
+                                   LineBreakMode="WordWrap"
+                                   VerticalOptions="Center"
+                                   FontSize="22" />
+                            <Label Text="{ Binding SubTitle}"
+                                   Grid.Row="1"
+                                   LineBreakMode="WordWrap"
+                                   VerticalOptions="Center"
+                                   TextColor="{StaticResource PhoneChromeBrush}"
+                                   FontSize="18" />
+
+                        </Grid>
+
+
+                        <Label Grid.Column="2"
+                               Text="{ Binding  Amount }"
+                               LineBreakMode="WordWrap"
+                               VerticalOptions="Center"
+                               Style="{ StaticResource CardViewTextStyle }" />
+
+
+                        <Label Grid.Column="3"
+                               VerticalOptions="Center"
+                               Text="{Binding Status,Converter={StaticResource TodoItemStatus2StringConverter}}"></Label>
+                        <Button Grid.Column="4"
+                                Command="{Binding SwitchCommand}"
+                                Text="{Binding Status,Converter={StaticResource TodoItemStatus2StringConverter} ,ConverterParameter=完成|删除|撤销}"></Button>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <ListView ItemsSource="{Binding TodoList}"
+                      Margin="12,25,12,0"
+                      SelectedItem="{Binding CurrenTodoItem}"
+                      ItemSelected="ListView_OnItemSelected"
+                      RowHeight="80"
+                      ItemTemplate="{StaticResource  PeddingDataTemplate}">
+                <ListView.Header>
+                    <Label Text="离开这个页面后删除的条目将不能撤销，想好了再行动噢~"
+                           VerticalOptions="Start"
+                           HorizontalOptions="Center"
+                           Style="{StaticResource SectionLabelStyle}"
+                           Margin="0,22"></Label>
+                </ListView.Header>
+
+            </ListView>
+            <control:PopupView x:Name="Popup"></control:PopupView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

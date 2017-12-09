@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:MatoIndustry.Control;assembly=MatoIndustry"
+             xmlns:pages="clr-namespace:Xamarin.Forms.Pages;assembly=Xamarin.Forms.Pages"
+             BindingContext="{Binding Source={StaticResource Locator}, Path= CategoryPage}"
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}"
+             x:Class="MatoIndustry.View.CategoryPage">
+    <ContentPage.Content>
+        <Grid Margin="12,25,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Label Text="请选择一个分类"
+                       HorizontalOptions="Center"
+                       Style="{StaticResource SectionLabelStyle}"></Label>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <ListView ItemsSource="{Binding ClassifyList}"
+                          SelectedItem="{Binding CurrentClassify}"
+                          RowHeight="50">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Margin="0,5"
+                                      x:Name="ClassifyLayout">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <BoxView BackgroundColor="{Binding TintColor}"
+                                                 IsVisible="{Binding IsOpen}"></BoxView>
+
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+
+
+
+                                        <Label Text="{Binding CurrentClassify.Name}"
+                                               LineBreakMode="WordWrap"
+                                               VerticalOptions="End"
+                                               Style="{ StaticResource CardViewTextStyle }" />
+
+                                    </Grid>
+                                </Grid>
+
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+                <control:MainGridView Grid.Column="1"
+                                      ItemsSource="{Binding CurrentClassify.SubClassifies}"
+                                      SelectedItem="{Binding SubCurrentClassify}"
+                                      MaxColumns="2"
+                                      TileHeight="80">
+
+                    <control:MainGridView.ItemTemplate>
+                        <DataTemplate>
+                            <pages:CardView BindingContext="{Binding CurrentClassify}"
+                                            HeightRequest="100"
+                                            Text="{Binding CurrentClassify.Name}"
+                                            BackgroundColor="White">
+                                <pages:CardView.ControlTemplate>
+                                    <ControlTemplate>
+                                        <ContentView>
+
+                                            <StackLayout Spacing="0">
+                                                <Label Text="{ TemplateBinding Text }"
+                                                       LineBreakMode="WordWrap"
+                                                       VerticalOptions="End"
+                                                       Style="{ StaticResource CardViewTextStyle }" />
+                                            </StackLayout>
+
+
+                                        </ContentView>
+                                    </ControlTemplate>
+                                </pages:CardView.ControlTemplate>
+                            </pages:CardView>
+
+                        </DataTemplate>
+                    </control:MainGridView.ItemTemplate>
+
+                </control:MainGridView>
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

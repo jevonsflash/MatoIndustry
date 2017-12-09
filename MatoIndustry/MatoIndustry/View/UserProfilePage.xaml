@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:MatoIndustry.Control;assembly=MatoIndustry"
+             BindingContext="{Binding Source={StaticResource Locator},Path=UserProfilePage}"
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}"
+             x:Class="MatoIndustry.View.UserProfilePage">
+    <ContentPage.Content>
+        <Grid Margin="12,25,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Text="小工具"
+                   Style="{StaticResource SectionLabelStyle}" />
+            <control:MainGridView Grid.Row="1"
+                                  ItemsSource="{Binding  ToolList}"
+                                  SelectedItem="{Binding CurrenTool}"
+                                  TileHeight="120">
+                <control:MainGridView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <Grid Margin="0,5"
+                                  x:Name="ClassifyLayout">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Label Text="{Binding Icon}"
+                                           FontFamily="FontAwesome"
+                                           FontSize="38"
+                                           TextColor="{StaticResource PhoneAccentBrush}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Label Text="{Binding Title}"
+                                           TextColor="{StaticResource PhoneChromeBrush}"
+                                           LineBreakMode="WordWrap"
+                                           VerticalOptions="End"
+                                           HorizontalOptions="Center"
+                                           Style="{ StaticResource CardViewTextStyle }" />
+
+                                </Grid>
+                            </Grid>
+
+
+                        </ContentView>
+                    </DataTemplate>
+                </control:MainGridView.ItemTemplate>
+            </control:MainGridView>
+
+
+            <!--<forms:FloatingActionButton x:Name="fabBtn"
+                                        Source="add"
+                                        Size="Normal"
+                                        NormalColor="#EB5151"
+                                        RippleColor="#951425"
+                                        HorizontalOptions="EndAndExpand"
+                                        Margin="22"
+                                        VerticalOptions="EndAndExpand"
+                                        />-->
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

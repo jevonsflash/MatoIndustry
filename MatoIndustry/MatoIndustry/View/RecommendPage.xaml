@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:MatoIndustry.Control;assembly=MatoIndustry"
+             xmlns:pages="clr-namespace:Xamarin.Forms.Pages;assembly=Xamarin.Forms.Pages"
+             xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
+             xmlns:effect="clr-namespace:MatoIndustry.Effect;assembly=MatoIndustry"
+             BindingContext="{Binding Source={StaticResource Locator}, Path= RecommendPage}"
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}"
+             x:Class="MatoIndustry.View.RecommendPage">
+    <ContentPage.Content>
+
+        <Grid Grid.Row="1">
+            <ListView ItemsSource="{Binding CookListItems}"
+                      SelectedItem="{Binding CurrentRecipeDetailItems}"
+                      RowHeight="180">
+                <ListView.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <forms:CarouselView ItemsSource="{Binding RecommendItems}"
+                                            Item="{Binding CurrentRecommendRecipeDetailItems}"
+                                            HeightRequest="200"
+                                            x:Name="CarouselZoos">
+                            <forms:CarouselView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid BindingContext="{Binding}">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
+                                        </Grid.GestureRecognizers>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.RowSpan="2"
+                                               Aspect="AspectFill"
+                                               Source="{Binding Recipe.Img}" />
+                                        <StackLayout Grid.Row="1"
+                                                     BackgroundColor="#80000000"
+                                                     Padding="12">
+                                            <Label TextColor="White"
+                                                   Text="{Binding Name}"
+                                                   FontSize="16"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="CenterAndExpand" />
+                                        </StackLayout>
+                                    </Grid>
+                                </DataTemplate>
+                            </forms:CarouselView.ItemTemplate>
+                        </forms:CarouselView>
+                        <StackLayout Grid.Row="1">
+                            <Grid Margin="0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="48"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Text=""
+                                   FontFamily="FontAwesome"
+                                   FontSize="22"
+                                   TextColor="{StaticResource PhoneChromeBrush}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+
+                                <Entry Grid.Column="1"
+                                   VerticalOptions="Center"
+                                   Placeholder="想吃点什么..?"
+                                   Focused="VisualElement_OnFocused"></Entry>
+
+                            </Grid>
+                            <BoxView Margin="12,0" HeightRequest="1" BackgroundColor="{StaticResource PhoneChromeBrush}"></BoxView>
+                        </StackLayout>
+                        <StackLayout Margin="12,0"
+                                     Grid.Row="2">
+                            <Label Text="热门标签"
+                                   Style="{StaticResource SectionLabelStyle}"></Label>
+                            <control:MainGridView MaxColumns="4"
+                                                  TileHeight="50"
+                                                  ItemsSource="{Binding HotSearchWords}"
+                                                  SelectedItem="{Binding CurrentSearchWordsInfo}">
+                                <control:MainGridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentView>
+                                            <Label Text="{Binding Words}"
+                                                   Margin="5"></Label>
+                                        </ContentView>
+                                    </DataTemplate>
+                                </control:MainGridView.ItemTemplate>
+                            </control:MainGridView>
+
+                            <Label Text="本周推荐" Margin="0,10"
+                                   Style="{StaticResource SectionLabelStyle}"></Label>
+                        </StackLayout>
+
+                    </Grid>
+
+                </ListView.Header>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <pages:CardView BindingContext="{Binding}"
+                                            ImageSource="{Binding Recipe.Img}"
+                                            Text="{Binding Name}"
+                                            Margin="0,5"
+                                            Detail="{Binding Food}">
+                                <pages:CardView.ControlTemplate>
+                                    <ControlTemplate>
+                                        <ContentView>
+                                            <Grid BackgroundColor="{ TemplateBinding BackgroundColor }">
+
+                                                <Image Source="{TemplateBinding ImageSource}"
+                                                       HorizontalOptions="FillAndExpand"
+                                                       VerticalOptions="StartAndExpand"
+                                                       Aspect="AspectFill"
+                                                       Style="{ StaticResource CardViewImageImageStyle }" />
+
+
+                                                <Label Text="{ TemplateBinding Text }"
+                                                       TextColor="White"
+                                                       LineBreakMode="WordWrap"
+                                                       VerticalOptions="End"
+                                                       Style="{ StaticResource CardViewTextStyle }">
+
+                                                    <Label.Effects>
+                                                        <effect:ShadowEffect Radius="5"
+                                                                             DistanceX="5"
+                                                                             DistanceY="5"
+                                                                             Color="Black">
+
+                                                        </effect:ShadowEffect>
+                                                    </Label.Effects>
+                                                </Label>
+                                            </Grid>
+                                        </ContentView>
+                                    </ControlTemplate>
+                                </pages:CardView.ControlTemplate>
+                            </pages:CardView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <Grid HeightRequest="200">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Button Text="查看更多" Clicked="Button_OnClicked"></Button>
+                        </Grid>
+                    </Grid>
+                </ListView.Footer>
+            </ListView>
+
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

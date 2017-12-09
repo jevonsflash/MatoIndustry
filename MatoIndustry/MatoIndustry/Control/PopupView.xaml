@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MatoIndustry.Control.PopupView"
+             IsVisible="False">
+    <ContentView.Content>
+        <Grid x:Name="MainLayout">
+            <BoxView x:Name="BackView"
+                     BackgroundColor="Black"
+                     Opacity="0.8">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Button_OnClicked"></TapGestureRecognizer>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid  Grid.Column="1" RowSpacing="0"
+                              Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid x:Name="Popup"></Grid>
+                        <Image HorizontalOptions="End"
+                               VerticalOptions="Start"
+                               HeightRequest="26"
+                               WidthRequest="26"
+                               Source="close_red.png"
+                               TranslationY="-13"
+                               TranslationX="13"
+                               x:Name="CloseButtonImg">
+
+                        </Image>
+
+                    </Grid>
+                    <Grid Grid.Row="1" x:Name="CloseButtonLayout" BackgroundColor="{StaticResource PhoneBackgroundBrush}">
+                        <Button Text="取消"                 
+                                TextColor="{StaticResource PhoneAccentBrush}"
+                                x:Name="CancelButton"
+                                FontSize="{StaticResource StandOutBodyFontSize}"
+                                Clicked="Button_OnClicked"></Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+    </ContentView.Content>
+</ContentView>
